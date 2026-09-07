@@ -1,0 +1,150 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+import typescriptSvg from "/src/assets/technos/typescript.svg";
+import reactSvg from "/src/assets/technos/react.svg";
+import javascriptSvg from "/src/assets/technos/javascript.svg";
+import vueSvg from "/src/assets/technos/vue.svg";
+import nuxtSvg from "/src/assets/technos/nuxt.svg";
+import astroSvg from "/src/assets/technos/astro.svg";
+import tailwindSvg from "/src/assets/technos/tailwind.svg";
+import shadcnSvg from "/src/assets/technos/shadcn.svg";
+import figmaSvg from "/src/assets/technos/figma.svg";
+import playwrightSvg from "/src/assets/technos/playwright.svg";
+import cypressSvg from "/src/assets/technos/cypress.svg";
+import storybookSvg from "/src/assets/technos/storybook.svg";
+import gitlabSvg from "/src/assets/technos/gitlab.svg";
+import gitSvg from "/src/assets/technos/git.svg";
+
+interface Tool {
+  name: string;
+  logoSvg: ImageMetadata;
+  bgColor: string;
+  textColor: string;
+}
+
+const tools: Tool[] = [
+  {
+    name: "TypeScript",
+    logoSvg: typescriptSvg,
+    bgColor: "bg-blue-50",
+    textColor: "text-blue-950",
+  },
+  {
+    name: "React",
+    logoSvg: reactSvg,
+    bgColor: "bg-sky-50",
+    textColor: "text-sky-950",
+  },
+  {
+    name: "JavaScript",
+    logoSvg: javascriptSvg,
+    bgColor: "bg-amber-50",
+    textColor: "text-amber-950",
+  },
+  {
+    name: "Vue.js",
+    logoSvg: vueSvg,
+    bgColor: "bg-emerald-50",
+    textColor: "text-emerald-950",
+  },
+  {
+    name: "Nuxt.js",
+    logoSvg: nuxtSvg,
+    bgColor: "bg-emerald-100",
+    textColor: "text-emerald-950",
+  },
+  {
+    name: "Astro",
+    logoSvg: astroSvg,
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-950",
+  },
+  {
+    name: "Tailwind CSS",
+    logoSvg: tailwindSvg,
+    bgColor: "bg-cyan-50",
+    textColor: "text-cyan-950",
+  },
+  {
+    name: "Shadcn UI",
+    logoSvg: shadcnSvg,
+    bgColor: "bg-neutral-100",
+    textColor: "text-neutral-900",
+  },
+  {
+    name: "Figma",
+    logoSvg: figmaSvg,
+    bgColor: "bg-orange-50",
+    textColor: "text-orange-950",
+  },
+  {
+    name: "Playwright",
+    logoSvg: playwrightSvg,
+    bgColor: "bg-blue-50",
+    textColor: "text-blue-950",
+  },
+  {
+    name: "Cypress",
+    logoSvg: cypressSvg,
+    bgColor: "bg-teal-50",
+    textColor: "text-teal-950",
+  },
+  {
+    name: "Storybook",
+    logoSvg: storybookSvg,
+    bgColor: "bg-rose-50",
+    textColor: "text-rose-950",
+  },
+  {
+    name: "GitLab",
+    logoSvg: gitlabSvg,
+    bgColor: "bg-orange-50",
+    textColor: "text-orange-950",
+  },
+  {
+    name: "Git",
+    logoSvg: gitSvg,
+    bgColor: "bg-red-50",
+    textColor: "text-red-950",
+  },
+];
+---
+
+<section id="toolbox" class="w-full bg-white text-neutral-950 pb-20 md:pb-40">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="mb-12 md:mb-24">
+      <h2
+        class="reveal-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-none text-neutral-950"
+      >
+        Toolbox
+      </h2>
+    </div>
+
+    <div
+      class="reveal-block bg-neutral-50 rounded-4xl px-6 md:px-12 py-8 md:py-16 flex flex-wrap gap-3 md:gap-4 justify-start items-center will-change-transform"
+    >
+      {
+        tools.map((tool, index) => (
+          <div
+            class:list={[
+              "reveal-block inline-flex items-center gap-3 px-5 py-3 rounded-2xl font-medium text-sm md:text-base select-none cursor-default will-change-transform",
+              tool.bgColor,
+              tool.textColor,
+            ]}
+          >
+            <Image
+              src={tool.logoSvg}
+              alt={`Logo ${tool.name}`}
+              width={20}
+              height={20}
+              class="w-5 h-5 object-contain shrink-0"
+            />
+            <span class="tracking-tight">{tool.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

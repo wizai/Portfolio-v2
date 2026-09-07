@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/google-sans-flex";
+
+@import "lenis/dist/lenis.css";
+
+@theme {
+  --font-sans: "Google Sans Flex Variable", sans-serif;
+  --shadow-pwa-pop:
+    0 16px 32px -4px rgba(0, 0, 0, 0.15), 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+}
+
+@layer base {
+  html,
+  body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+}

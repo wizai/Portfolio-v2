@@ -1,0 +1,99 @@
+---
+import { getImage } from "astro:assets";
+
+import Layout from "../../layouts/Layout.astro";
+
+import Hero from "../../components/sections/project-detail/Hero.astro";
+import TextGrid from "../../components/sections/project-detail/TextGrid.astro";
+import MediaGrid from "../../components/sections/project-detail/MediaGrid.astro";
+import Intro from "../../components/sections/project-detail/Intro.astro";
+
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { projectDetailSchema, breadcrumbSchema } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  const projectEntries = await getCollection("projects");
+  return projectEntries.map((entry: CollectionEntry<"projects">) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"projects">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const canonicalURL = new URL(`/projects/${entry.id}`, Astro.site).toString();
+
+const description = `${entry.data.tagline} A ${entry.data.context} ${entry.data.contextDetail} built with ${entry.data.stack.split(",")[0].trim()}.`;
+
+const optimizedCover = await getImage({
+  src: entry.data.coverImg,
+  width: 1200,
+  height: 630,
+  format: "jpeg",
+});
+const coverImageUrl = new URL(optimizedCover.src, Astro.site).toString();
+
+const schema = [
+  projectDetailSchema({
+    title: entry.data.title,
+    tagline: entry.data.tagline,
+    context: entry.data.context,
+    timeline: entry.data.timeline,
+    pubDate: entry.data.pubDate,
+    stack: entry.data.stack,
+    websiteUrl: entry.data.websiteUrl,
+    coverImageUrl,
+    url: canonicalURL,
+    siteUrl: Astro.site!.toString(),
+    authorName: "William Nisole",
+  }),
+  breadcrumbSchema([
+    { name: "Home", url: Astro.site!.toString() },
+    { name: "Projects", url: new URL("/projects", Astro.site).toString() },
+    { name: entry.data.title, url: canonicalURL },
+  ]),
+];
+---
+
+<Layout
+  title={`${entry.data.title} | William Nisole — Case Study`}
+  description={description}
+  image={coverImageUrl}
+  schema={schema}
+>
+  <Hero title={entry.data.title} tagline={entry.data.tagline} />
+
+  <MediaGrid medias={entry.data.mediasFirst} />
+
+  <Intro
+    title={entry.data.title}
+    timeline={entry.data.timeline}
+    stack={entry.data.stack}
+    context={entry.data.context}
+    contextDetail={entry.data.contextDetail}
+    websiteUrl={entry.data.websiteUrl}
+  >
+    <Content />
+  </Intro>
+
+  {entry.data.mediasSecond && <MediaGrid medias={entry.data.mediasSecond} />}
+
+  <TextGrid
+    sectionTitle={entry.data.textGridFirstTitle}
+    items={entry.data.textGridFirst}
+  />
+
+  {entry.data.mediasThird && <MediaGrid medias={entry.data.mediasThird} />}
+
+  <TextGrid
+    sectionTitle={entry.data.textGridSecondTitle}
+    items={entry.data.textGridSecond}
+  />
+
+  {entry.data.mediasFourth && <MediaGrid medias={entry.data.mediasFourth} />}
+</Layout>

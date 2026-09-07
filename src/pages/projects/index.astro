@@ -1,0 +1,151 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { projectListSchema } from "../../lib/schema";
+
+const allProjects = await getCollection("projects");
+
+const sortedProjects = allProjects.sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const schema = projectListSchema(
+  Astro.site!.toString(),
+  sortedProjects.map((project) => ({
+    title: project.data.title,
+    tagline: project.data.tagline,
+    url: new URL(`/projects/${project.id}`, Astro.site).toString(),
+  })),
+);
+
+const leftColumnProjects = sortedProjects.filter((_, index) => index % 2 === 0);
+const rightColumnProjects = sortedProjects.filter(
+  (_, index) => index % 2 !== 0,
+);
+---
+
+<Layout
+  title="Selected Projects | William Nisole"
+  description="Selected creative front-end applications, interactive component systems and design-driven interfaces developed by William Nisole."
+  schema={schema}
+>
+  <section class="w-full pt-40 pb-24 md:pt-52 md:pb-40 bg-white" id="hero">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="flex flex-col max-w-4xl gap-8">
+        <h1
+          class="reveal-text text-5xl xs:text-6xl sm:text-7xl md:text-8xl font-medium tracking-tighter leading-[1.1] text-neutral-950"
+          aria-label="Selected work"
+        >
+          Selected work
+        </h1>
+        <p
+          class="reveal-text max-w-xl text-neutral-500 text-base leading-relaxed tracking-wide"
+          data-hero="true"
+          data-delay="0.3"
+          data-speed="fast"
+        >
+          An overview of design-driven web applications, creative component
+          systems and fluid user interfaces.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="projects"
+    class="w-full bg-white text-neutral-950 pb-20 md:pb-40"
+  >
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-x-28 md:gap-y-0 items-start"
+      >
+        <div class="flex flex-col gap-12 md:gap-y-28">
+          {
+            leftColumnProjects.map((project, index) => {
+              const aspectClass =
+                project.data.coverAspectClass || "aspect-[500/675]";
+              const isFirst = index === 0;
+              const trigger = isFirst ? "#hero" : undefined;
+              const delay = isFirst ? "0.6" : undefined;
+
+              return (
+                <div class="w-full">
+                  <a
+                    href={`/projects/${project.id}`}
+                    class="reveal-block group block text-left will-change-transform"
+                    data-trigger={trigger}
+                    data-delay={delay}
+                  >
+                    <div
+                      class:list={[
+                        " media-wrapper overflow-hidden rounded-3xl bg-neutral-50 mb-6 md:mb-8 transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-98",
+                        aspectClass,
+                      ]}
+                    >
+                      <div class="media-target w-full h-[110%] -mt-[5%] scale-105 will-change-transform">
+                        <Image
+                          src={project.data.coverImg}
+                          widths={[380, 640, project.data.coverImg.width]}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+                          alt={`${project.data.title} Cover Showcase`}
+                          class="w-full h-full object-cover select-none pointer-events-none"
+                        />
+                      </div>
+                    </div>
+                    <div class="reveal-text text-lg md:text-xl font-normal tracking-tight leading-snug text-neutral-950 max-w-md">
+                      {project.data.tagline}
+                    </div>
+                  </a>
+                </div>
+              );
+            })
+          }
+        </div>
+
+        <div class="flex flex-col gap-12 md:gap-y-28 md:mt-38">
+          {
+            rightColumnProjects.map((project, index) => {
+              const aspectClass =
+                project.data.coverAspectClass || "aspect-[500/675]";
+              const isFirst = index === 0;
+              const trigger = isFirst ? "#hero" : undefined;
+              const delay = isFirst ? "0.75" : undefined;
+
+              return (
+                <div class="w-full">
+                  <a
+                    href={`/projects/${project.id}`}
+                    class="group block text-left"
+                  >
+                    <div
+                      class:list={[
+                        "reveal-block media-wrapper overflow-hidden rounded-3xl bg-neutral-50 mb-6 md:mb-8 transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-98 will-change-transform",
+                        aspectClass,
+                      ]}
+                      data-trigger={trigger}
+                      data-delay={delay}
+                    >
+                      <div class="media-target w-full h-[110%] -mt-[5%] scale-105 will-change-transform">
+                        <Image
+                          src={project.data.coverImg}
+                          widths={[380, 640, project.data.coverImg.width]}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+                          alt={`${project.data.title} Cover Showcase`}
+                          class="w-full h-full object-cover select-none pointer-events-none"
+                        />
+                      </div>
+                    </div>
+                    <div class="text-lg md:text-xl font-normal tracking-tight leading-snug text-neutral-950 max-w-md">
+                      {project.data.tagline}
+                    </div>
+                  </a>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

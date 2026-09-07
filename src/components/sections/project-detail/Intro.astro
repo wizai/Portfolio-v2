@@ -1,0 +1,82 @@
+---
+import { Image } from "astro:assets";
+import arrowIcon from "../../../assets/arrow.svg";
+
+interface Props {
+  title: string;
+  timeline: string;
+  stack: string;
+  context: string;
+  contextDetail?: string;
+  websiteUrl: string;
+}
+
+const { title, timeline, stack, context, websiteUrl, contextDetail } =
+  Astro.props;
+
+const technologies = stack.includes(",")
+  ? stack.split(",").map((tech) => tech.trim())
+  : [stack];
+---
+
+<section class="w-full pb-20 md:pb-32 bg-white text-neutral-950" id="intro">
+  <div
+    class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start"
+  >
+    <div
+      class="col-span-1 md:col-span-3 lg:col-span-4 flex flex-col gap-6 md:gap-8"
+    >
+      <div class="reveal-block will-change-transform" data-delay="0">
+        <p class="text-xl md:text-2xl font-medium mb-2">Year</p>
+        <p class="text-neutral-500">{timeline}</p>
+      </div>
+
+      <div class="reveal-block will-change-transform" data-delay="0.1">
+        <p class="text-xl md:text-2xl font-medium mb-2">Technologies</p>
+        <div class="flex flex-col gap-1.5">
+          {technologies.map((tech) => <p class="text-neutral-500">{tech}</p>)}
+        </div>
+      </div>
+
+      <div class="reveal-block will-change-transform" data-delay="0.2">
+        <p class="text-xl md:text-2xl font-medium mb-2">Context / Sector</p>
+        <p class="text-neutral-500">
+          {context}
+          {contextDetail && <span class="block italic">{contextDetail}</span>}
+        </p>
+      </div>
+
+      <div
+        class="reveal-block flex pt-2 will-change-transform"
+        data-delay="0.3"
+      >
+        <a
+          href={websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-base relative font-medium pb-1 tracking-tight leading-none inline-flex items-center gap-2 before:absolute before:bottom-0 before:left-0 before:right-0 before:block before:h-[1px] before:bg-current before:transition-transform before:duration-1000 before:ease-[cubic-bezier(0.19,1,0.22,1)] motion-safe:pointer-fine:hover:before:scale-x-0"
+          aria-label={`Visit ${title} website`}
+        >
+          Visit Website
+          <Image
+            src={arrowIcon}
+            alt="Linkedin"
+            width={20}
+            height={20}
+            class="w-3 h-3"
+          />
+        </a>
+      </div>
+    </div>
+
+    <div class="col-span-1 md:col-span-9 lg:col-span-8">
+      <div
+        class="reveal-text flex flex-col gap-6 md:gap-8 text-xl md:text-2xl text-neutral-500 leading-relaxed tracking-wide
+                  [&>p]:leading-relaxed [&>p>strong]:text-neutral-950 [&>p>strong]:font-semibold"
+        data-delay="0.15"
+      >
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>

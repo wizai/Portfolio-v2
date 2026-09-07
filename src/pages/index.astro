@@ -1,11 +1,19 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import About from "../components/sections/home/About.astro";
+import Hero from "../components/sections/home/Hero.astro";
+import KeywordsIndex from "../components/sections/home/KeywordsIndex.astro";
+import ProjectsGrid from "../components/sections/home/ProjectsGrid.astro";
+import Layout from "../layouts/Layout.astro";
+import { personSchema } from "../lib/schema";
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="William Nisole | Creative Front-End Developer"
+  description="Portfolio of William Nisole, specializing in React, Vue.js, Nuxt, and TypeScript."
+  schema={personSchema(Astro.site!.toString())}
+>
+  <Hero />
+  <About />
+  <ProjectsGrid />
+  <KeywordsIndex />
 </Layout>

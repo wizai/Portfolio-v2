@@ -1,0 +1,18 @@
+---
+import { personSchema } from "../lib/schema";
+
+import Experiences from "../components/sections/about/Experiences.astro";
+import Hero from "../components/sections/about/Hero.astro";
+import Toolbox from "../components/sections/about/Toolbox.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="About | William Nisole"
+  description="Creative Front-End Developer deeply focused on design, motion, and pixel-perfect interface architectures."
+  schema={personSchema(Astro.site!.toString())}
+>
+  <Hero />
+  <Experiences />
+  <Toolbox />
+</Layout>

@@ -1,0 +1,64 @@
+---
+import AnimatedLink from "../components/ui/AnimatedLink.astro";
+import RoundedButton from "../components/ui/RoundedButton.astro";
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>Page not found</title>
+    <meta
+      name="description"
+      content="We can't find the page you're looking for. It may have moved, or the link you followed may be broken."
+    />
+  </head>
+  <body
+    class="bg-white text-neutral-950 antialiased selection:bg-neutral-950 selection:text-white"
+  >
+    <section class="flex h-dvh items-center justify-center p-4">
+      <div class="flex flex-col text-center gap-8 max-w-2xl">
+        <h1
+          class="text-[12rem] font-bold tracking-tighter text-primary sm:text-[16rem] md:text-[20rem] leading-none select-none"
+        >
+          404
+        </h1>
+        <div class="flex flex-col gap-5">
+          <h2
+            class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter text-balance text-foreground"
+          >
+            Page not found
+          </h2>
+
+          <p
+            class="text-base md:text-lg font-normal text-muted-foreground leading-relaxed max-w-xl"
+          >
+            We can't find the page you're looking for. It may have moved, or the
+            link you followed may be broken.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+          <RoundedButton href="#" text="Go back" class="go-back-btn" />
+          <RoundedButton href="/" text="Homepage" />
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
+<script is:inline>
+  const goBackButton = document.querySelector(".go-back-btn");
+  goBackButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.history.back();
+  });
+</script>

@@ -1,0 +1,64 @@
+---
+const keywords = [
+  "Front-End",
+  "Development",
+  "UI",
+  "UX",
+  "Engineering",
+  "React",
+  "Astro",
+  "Vue.js",
+  "Nuxt.js",
+  "TypeScript",
+  "TanStack Query",
+  "Shadcn UI",
+  "Tailwind CSS",
+  "PWA",
+  "Playwright",
+  "Cypress",
+  "GTM",
+  "Architecture",
+  "Code",
+  "Quality",
+  "Performance",
+  "Optimization",
+  "Component",
+  "System",
+  "Mobile-First",
+  "Responsive",
+  "Layout",
+  "Pixel-Perfect",
+  "Integration",
+  "Animation",
+  "Interface",
+  "Digital",
+  "Product",
+  "Automation",
+  "Tracking",
+];
+---
+
+<section class="w-full bg-white text-neutral-950 pb-20 md:pb-40" id="keywords">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="flex flex-wrap items-center gap-2">
+      {
+        keywords.map((word, index) => (
+          <div class="reveal-block flex items-center gap-3 md:gap-4 will-change-transform">
+            <span class="text-base md:text-xl font-base tracking-tight text-neutral-950">
+              {word}
+            </span>
+
+            {index < keywords.length - 1 && (
+              <span
+                class="text-xl sm:text-3xl md:text-4xl text-neutral-200 select-none font-light"
+                aria-hidden="true"
+              >
+                ·
+              </span>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

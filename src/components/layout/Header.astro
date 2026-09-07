@@ -1,0 +1,110 @@
+---
+import AnimatedLink from "../ui/AnimatedLink.astro";
+---
+
+<header class="fixed bg-white top-0 left-0 w-full z-50">
+  <div
+    class="max-w-7xl mx-auto px-6 md:px-12 py-6 flex items-center justify-between relative z-50"
+  >
+    <div class="overflow-hidden py-1 -my-1">
+      <a
+        href="/"
+        class="reveal-header-item inline-block text-3xl font-bold tracking-tight text-neutral-950 will-change-transform"
+      >
+        William Nisole
+      </a>
+    </div>
+
+    <nav class="hidden md:block">
+      <ul class="flex items-center gap-6">
+        <li class="inline-flex overflow-hidden py-1 -my-1">
+          <AnimatedLink
+            href="/projects"
+            text="Projects"
+            class="reveal-header-item inline-block text-xl text-neutral-950 hover:text-neutral-600 will-change-transform"
+          />
+        </li>
+        <li class="inline-flex overflow-hidden py-1 -my-1">
+          <AnimatedLink
+            href="/about"
+            text="About"
+            class="reveal-header-item inline-block text-xl text-neutral-950 hover:text-neutral-600 will-change-transform"
+          />
+        </li>
+      </ul>
+    </nav>
+
+    <div class="md:hidden">
+      <label
+        for="menu-toggle"
+        class="flex flex-col gap-1.5 justify-center items-center w-7 h-7 cursor-pointer select-none"
+      >
+        <input type="checkbox" id="menu-toggle" class="peer hidden" />
+        <span
+          class="w-7 h-[1.5px] bg-neutral-900 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+                     peer-checked:translate-y-[4px] peer-checked:rotate-45"
+        >
+        </span>
+        <span
+          class="w-7 h-[1.5px] bg-neutral-900 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
+                     peer-checked:-translate-y-[3.5px] peer-checked:-rotate-45"
+        >
+        </span>
+      </label>
+    </div>
+  </div>
+
+  <div
+    class="md:hidden fixed inset-0 w-full top-0 left-0 right-0 grid items-center h-screen pt-[13rem] px-12 pb-20 h-lvh pb-[calc(100lvh-100svh+5rem)] bg-white z-40 pointer-events-none
+           [clip-path:inset(0_0_0_100%)] transition-all duration-[450ms] ease-in-out
+           [:has(#menu-toggle:checked)~&]:[clip-path:inset(0_0_0_0%)] [:has(#menu-toggle:checked)~&]:pointer-events-auto [:has(#menu-toggle:checked)~&]:duration-[1200ms] [:has(#menu-toggle:checked)~&]:ease-[cubic-bezier(0.15,0.88,0,1)]"
+  >
+    <div
+      class="translate-x-16 opacity-0 transition-all duration-[450ms] ease-in-out
+                  [:has(#menu-toggle:checked)~div_div]:translate-x-0 [:has(#menu-toggle:checked)~div_div]:opacity-100 [:has(#menu-toggle:checked)~div_div]:duration-[1400ms] [:has(#menu-toggle:checked)~div_div]:ease-[cubic-bezier(0.05,1,0.1,1)] [:has(#menu-toggle:checked)~div_div]:delay-[100ms]"
+    >
+      <nav class="flex flex-col space-y-4">
+        <p
+          class="text-xs uppercase tracking-widest text-neutral-400 font-semibold mb-4"
+        >
+          Menu
+        </p>
+
+        <AnimatedLink
+          href="/"
+          text="Home"
+          class="text-5xl font-normal tracking-tight text-neutral-950"
+        />
+
+        <AnimatedLink
+          href="/projects"
+          text="Projects"
+          class="text-5xl font-normal h-[51px] tracking-tight text-neutral-950"
+        />
+        <AnimatedLink
+          href="/about"
+          text="About"
+          class="text-5xl font-normal tracking-tight text-neutral-950"
+        />
+      </nav>
+    </div>
+
+    <div
+      class="pt-12 flex flex-col space-y-4 translate-x-16 opacity-0 transition-all duration-[450ms] ease-in-out
+                  [:has(#menu-toggle:checked)~div_>_div:last-child]:translate-x-0 [:has(#menu-toggle:checked)~div_>_div:last-child]:opacity-100 [:has(#menu-toggle:checked)~div_>_div:last-child]:duration-[1400ms] [:has(#menu-toggle:checked)~div_>_div:last-child]:ease-[cubic-bezier(0.05,1,0.1,1)] [:has(#menu-toggle:checked)~div_>_div:last-child]:delay-[100ms]"
+    >
+      <p
+        class="text-xs uppercase tracking-widest text-neutral-400 font-semibold mb-4"
+      >
+        Let's build something together.
+      </p>
+      <div class="flex">
+        <a
+          href="mailto:william.nisole@gmail.com"
+          class="text-l pb-1 border-b border-neutral-300 tracking-tight leading-tight"
+          >william.nisole@gmail.com</a
+        >
+      </div>
+    </div>
+  </div>
+</header>

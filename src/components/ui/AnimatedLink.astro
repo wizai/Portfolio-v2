@@ -1,0 +1,29 @@
+---
+interface Props {
+  href: string;
+  text: string;
+  external?: boolean;
+  class?: string;
+}
+
+const { href, text, external = false, class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  class:list={["group inline-block overflow-hidden ", className]}
+>
+  <span class="block h-full overflow-hidden">
+    <span
+      data-text={text}
+      class="relative block transition-transform duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full
+             after:content-[attr(data-text)] after:block after:absolute after:top-full after:left-0 after:right-0
+             after:scale-70 after:origin-top-left after:transition-transform after:duration-400 after:ease-[cubic-bezier(0.16,1,0.3,1)]
+             group-hover:after:scale-100"
+    >
+      {text}
+    </span>
+  </span>
+</a>

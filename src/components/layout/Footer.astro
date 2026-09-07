@@ -1,0 +1,132 @@
+---
+import { Image } from "astro:assets";
+
+import githubIcon from "../../assets/github.svg";
+import linkedinIcon from "../../assets/linkedin.svg";
+import AnimatedLink from "../ui/AnimatedLink.astro";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full bg-neutral-950" id="footer">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+    <div
+      class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-16 md:mb-24"
+    >
+      <div
+        class="reveal-block md:col-span-8 will-change-transform"
+        data-trigger="#footer"
+      >
+        <p
+          class="text-xs uppercase tracking-wider text-neutral-500 font-medium mb-4"
+        >
+          Let’s build something together.
+        </p>
+        <h2
+          class="text-2xl md:text-5xl font-bold tracking-tight text-neutral-100 leading-tight"
+          aria-label="william.nisole@gmail.com"
+        >
+          <a
+            href="mailto:william.nisole@gmail.com"
+            class="border-b border-white"
+          >
+            william.nisole@gmail.com
+          </a>
+        </h2>
+      </div>
+
+      <div
+        class="md:col-span-4 flex flex-col md:items-end justify-end space-y-6"
+      >
+        <div class="overflow-hidden py-1 -my-1">
+          <AnimatedLink
+            href="/"
+            text="Homepage"
+            class="reveal-text inline-block text-2xl text-white hover:text-white will-change-transform"
+            data-trigger="#footer"
+            data-delay="0.15"
+          />
+        </div>
+        <div class="overflow-hidden py-1 -my-1">
+          <AnimatedLink
+            href="/projects"
+            text="Projects"
+            class="reveal-text inline-block text-2xl text-white hover:text-white will-change-transform"
+            data-trigger="#footer"
+            data-delay="0.25"
+          />
+        </div>
+        <div class="overflow-hidden py-1 -my-1">
+          <AnimatedLink
+            href="/about"
+            text="About"
+            class="reveal-text inline-block text-2xl text-white hover:text-white will-change-transform"
+            data-trigger="#footer"
+            data-delay="0.35"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-col md:flex-row justify-between items-start md:items-center gap-16 md:gap-4"
+    >
+      <div
+        class="reveal-block text-l text-white tracking-wide will-change-transform"
+      >
+        <p>
+          <span class="font-bold">© {currentYear}</span> — Designed & Engineered by
+          William Nisole
+        </p>
+      </div>
+
+      <div class="flex items-center gap-8 order-first md:order-last">
+        <div class="reveal-block will-change-transform" data-delay="0.25">
+          <a
+            href="https://github.com/wizai"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative inline-flex items-center justify-center w-15 h-15 overflow-hidden rounded-full text-white transition-colors duration-200"
+            aria-label="GitHub"
+          >
+            <span
+              class="absolute inset-0 bg-white/10 rounded-full transition-transform duration-400 pointer-events-none
+                   group-hover:scale-95 group-hover:transition-transform group-hover:duration-600 group-hover:ease-[cubic-bezier(0.34,4.56,0.64,1)]"
+            >
+            </span>
+            <Image
+              src={githubIcon}
+              alt="Github"
+              width={20}
+              height={20}
+              class="relative z-10 w-5 h-5 invert"
+            />
+          </a>
+        </div>
+
+        <div class="reveal-block will-change-transform" data-delay="0.35">
+          <a
+            href="https://www.linkedin.com/in/william-n-01153a116"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative inline-flex items-center justify-center w-15 h-15 overflow-hidden rounded-full text-white transition-colors duration-200"
+            aria-label="LinkedIn"
+          >
+            <span
+              class="absolute inset-0 bg-white/10 rounded-full transition-transform duration-400 pointer-events-none
+                   group-hover:scale-95 group-hover:transition-transform group-hover:duration-600 group-hover:ease-[cubic-bezier(0.34,4.56,0.64,1)]"
+            >
+            </span>
+            <Image
+              src={linkedinIcon}
+              alt="Linkedin"
+              width={20}
+              height={20}
+              class="relative z-10 w-5 h-5 invert"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

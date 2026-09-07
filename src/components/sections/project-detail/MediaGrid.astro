@@ -1,0 +1,90 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface GridMediaItem {
+  mediaImg: ImageMetadata;
+  videoWebm?: string;
+  videoMp4?: string;
+  altText: string;
+  aspectClass?: string;
+}
+
+interface Props {
+  medias: GridMediaItem[];
+}
+
+const { medias } = Astro.props;
+
+const isSingle = medias.length === 1;
+---
+
+<section class="w-full pb-20 md:pb-32 bg-white">
+  <div class="max-w-7xl px-6 md:px-12 mx-auto">
+    <div
+      class:list={[
+        "grid grid-cols-1 items-start w-full",
+        isSingle ? "gap-0" : "md:grid-cols-2 gap-6 md:gap-8",
+      ]}
+    >
+      {
+        medias.map((item, index) => {
+          const hasVideo = item.videoWebm || item.videoMp4;
+
+          const currentAspect =
+            item.aspectClass ||
+            (isSingle
+              ? "aspect-[355/400] md:aspect-[1920/1080]"
+              : "aspect-square sm:aspect-[4/3] md:aspect-[500/675]");
+
+          const gridDelay = isSingle ? "0" : (index * 0.15).toString();
+
+          return (
+            <div class="reveal-block w-full" data-delay={gridDelay}>
+              <div
+                class:list={[
+                  "media-wrapper w-full overflow-hidden rounded-3xl will-change-transform",
+                  currentAspect,
+                ]}
+              >
+                <div class="media-target w-full h-[110%] -mt-[5%] scale-105 will-change-transform">
+                  {hasVideo ? (
+                    <video
+                      poster={item.mediaImg.src}
+                      autoplay
+                      loop
+                      muted
+                      playsinline
+                      preload="auto"
+                      class="w-full h-full object-cover select-none pointer-events-none"
+                    >
+                      {item.videoWebm && (
+                        <source src={item.videoWebm} type="video/webm" />
+                      )}
+                      {item.videoMp4 && (
+                        <source src={item.videoMp4} type="video/mp4" />
+                      )}
+                    </video>
+                  ) : (
+                    <Image
+                      src={item.mediaImg}
+                      widths={[400, 800, 1280, item.mediaImg.width]}
+                      sizes={
+                        isSingle
+                          ? "(max-width: 1280px) 100vw, 1280px"
+                          : "(max-width: 768px) 100vw, 600px"
+                      }
+                      alt={item.altText}
+                      class="w-full h-full object-cover select-none pointer-events-none"
+                      loading={isSingle ? "eager" : "lazy"}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

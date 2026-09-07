@@ -1,0 +1,85 @@
+---
+
+---
+
+<div
+  id="page-transition"
+  class="fixed inset-0 z-[999] pointer-events-none"
+  transition:persist="page-transition"
+>
+  <div
+    id="page-transition-backdrop"
+    class="absolute inset-0 bg-black/30 opacity-0"
+  >
+  </div>
+  <div
+    id="page-transition-curtain"
+    class="absolute inset-0 bg-white"
+    style="transform: scaleY(1)"
+  >
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  if (!(window as any).__pageTransitionReady) {
+    (window as any).__pageTransitionReady = true;
+
+    const wrapper = document.getElementById("page-transition")!;
+    const backdrop = document.getElementById("page-transition-backdrop")!;
+    const curtain = document.getElementById("page-transition-curtain")!;
+
+    function coverScreen(): Promise<void> {
+      return new Promise((resolve) => {
+        wrapper.style.pointerEvents = "auto";
+        gsap.timeline().to(backdrop, { opacity: 1, duration: 0.3 }, 0).fromTo(
+          curtain,
+          { scaleY: 0, transformOrigin: "bottom" },
+          {
+            scaleY: 1,
+            transformOrigin: "bottom",
+            duration: 0.7,
+            ease: "power4.inOut",
+            onComplete: resolve,
+          },
+          0,
+        );
+      });
+    }
+
+    function revealScreen(): Promise<void> {
+      return new Promise((resolve) => {
+        gsap
+          .timeline()
+          .to(backdrop, { opacity: 0, duration: 0.15 }, 0)
+          .to(
+            curtain,
+            {
+              scaleY: 0,
+              transformOrigin: "top",
+              duration: 0.6,
+              ease: "power4.inOut",
+              onComplete: () => {
+                wrapper.style.pointerEvents = "none";
+                resolve();
+              },
+            },
+            0,
+          );
+      });
+    }
+
+    document.addEventListener("astro:before-preparation", (event: any) => {
+      const originalLoader = event.loader;
+      event.loader = async () => {
+        await coverScreen();
+        await originalLoader();
+      };
+    });
+
+    document.addEventListener("page-transition:ready", () => {
+      revealScreen();
+    });
+  }
+</script>

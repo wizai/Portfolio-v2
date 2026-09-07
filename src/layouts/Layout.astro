@@ -1,23 +1,101 @@
+---
+const UMAMI_ID = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+const UMAMI_SRC = import.meta.env.PUBLIC_UMAMI_SRC;
+
+import { ClientRouter } from "astro:transitions";
+
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+
+import PageTransition from "../components/ui/PageTransition.astro";
+import Seo from "../components/Seo.astro";
+import JsonLd from "../components/JsonLd.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, image, schema } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="William Nisole | Creative Front-End Developer" />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <Seo title={title} description={description} image={image} />
+    {schema && <JsonLd schema={schema} />}
+
+    <ClientRouter />
+
+    <!-- Tracking -->
+      {import.meta.env.PROD && UMAMI_ID && (
+    <script
+      defer
+      src={UMAMI_SRC}
+      data-website-id={UMAMI_ID}
+      data-auto-track="false"
+    ></script>
+  )}
+
+  {import.meta.env.DEV && (
+    <script is:inline>
+      window.umami = {
+        track(eventNameOrProps, data) {
+          if (typeof eventNameOrProps === "string") {
+            console.log("[umami:dev] event", eventNameOrProps, data ?? {});
+          } else {
+            console.log("[umami:dev] pageview", window.location.pathname);
+          }
+        },
+      };
+
+      document.addEventListener("click", (e) => {
+        const target = e.target.closest("[data-umami-event]");
+        if (!target) return;
+
+        const eventName = target.getAttribute("data-umami-event");
+        const data = {};
+        for (const attr of target.attributes) {
+          if (attr.name.startsWith("data-umami-event-")) {
+            data[attr.name.replace("data-umami-event-", "")] = attr.value;
+          }
+        }
+        window.umami.track(eventName, data);
+      });
+    </script>
+  )}
+  </head>
+  <body
+    class="bg-white text-neutral-950 antialiased selection:bg-neutral-950 selection:text-white"
+  >
+    <PageTransition />
+    <Header />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<script>
+  import "../scripts/smooth-scroll";
+  import "../scripts/analytics";
+</script>

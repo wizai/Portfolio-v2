@@ -1,0 +1,48 @@
+---
+interface GridItem {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  sectionTitle: string;
+  items: GridItem[];
+}
+
+const { sectionTitle, items } = Astro.props;
+---
+
+<section class="w-full bg-white text-neutral-950 pb-20 md:pb-52 text-grid">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="mb-12 md:mb-24">
+      <h2
+        class="reveal-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-none text-neutral-950"
+        aria-label={sectionTitle}
+      >
+        {sectionTitle}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12">
+      {
+        items.map((feature, index) => {
+          const cardDelay = index % 2 === 0 ? "0" : "0.15";
+          return (
+            <div
+              class="reveal-block flex flex-col gap-4 md:gap-6 bg-neutral-50 p-6 md:p-12 rounded-3xl"
+              data-delay={cardDelay}
+            >
+              <h3 class="text-2xl md:text-3xl font-medium tracking-tight leading-tight text-neutral-950">
+                {feature.title}
+              </h3>
+              <p
+                class="text-neutral-500 leading-relaxed[&>strong]:font-semibold"
+                set:html={feature.description}
+              />
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
