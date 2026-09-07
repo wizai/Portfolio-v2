@@ -3,7 +3,7 @@ title: "Rainr"
 tagline: "A minimalist weather web app built for mobile."
 context: "Personal Project"
 contextDetail: "(Design & Development)"
-timeline: "2026"
+timeline: "2025 - 2026"
 pubDate: 2026-06-30
 stack: "React, Vite, Typescript, Shadcn UI, Tailwind CSS, PWA, Open Meteo API"
 websiteUrl: "https://rainr.wizai.fr/"

@@ -1,9 +1,9 @@
 ---
 title: "Watchr"
-tagline: "A minimalist movie, series, and anime tracker."
+tagline: "A minimalist movies, series, and animes tracker."
 context: "Personal Project"
 contextDetail: "(Design & Development)"
-timeline: "2026"
+timeline: "2025 - 2026"
 pubDate: 2026-08-14
 stack: "React, Vite, Typescript, Tanstack, Shadcn UI, Tailwind CSS, PWA, TMDB API"
 websiteUrl: "https://watchr.wizai.fr/"

@@ -2,8 +2,8 @@
 title: "Mazda occasion"
 tagline: "An automotive certified pre-owned platform."
 context: "Digital Agency Project"
-timeline: "2019 - 2021"
-pubDate: 2021-05-20
+timeline: "2020"
+pubDate: 2020-05-20
 stack: "Symfony, PHP, Twig, Javascript, SASS, BEM Architecture"
 websiteUrl: "https://occasions.mazda.fr/"
 

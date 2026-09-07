@@ -2,7 +2,7 @@
 title: "MONI"
 tagline: "Redefining the digital experience of money transfers."
 context: "FinTech Application"
-timeline: "2021 — 2024"
+timeline: "2021 — 2025"
 pubDate: 2025-07-31
 stack: "Vue.js / Nuxt.js, TypeScript, Playwright / Cypress, Storybook"
 websiteUrl: "https://monisnap.com"
@@ -54,7 +54,7 @@ mediasFourth:
 textGridFirstTitle: "Application & Interfaces"
 textGridFirst:
   - title: "Core Webapp & Marketing Sites"
-    description: "Developed the main transactional application (<strong>www.webapp.monisnap.com</strong>) and two high-traffic marketing platforms (<strong>www.monisnap.com</strong>, <strong>allo.monisnap.com</strong>) using Vue.js and Nuxt.js."
+    description: "Developed the main transactional application (<strong>webapp.monisnap.com</strong>) and two high-traffic marketing platforms (<strong>monisnap.com</strong>, <strong>allo.monisnap.com</strong>) using Vue.js and Nuxt.js."
   - title: "Rebranding Integration"
     description: "Deployed the new visual identity across all platforms, translating <strong>Figma mockups</strong> into fluid, responsive, and <strong>pixel-perfect</strong> UI components."
   - title: "Design System"
