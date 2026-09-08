@@ -28,7 +28,10 @@ const { Content } = await render(entry);
 
 const canonicalURL = new URL(`/projects/${entry.id}`, Astro.site).toString();
 
-const description = `${entry.data.tagline} A ${entry.data.context} ${entry.data.contextDetail} built with ${entry.data.stack.split(",")[0].trim()}.`;
+const contextLabel = [entry.data.context, entry.data.contextDetail]
+  .filter(Boolean)
+  .join(" ");
+const description = `${entry.data.tagline} A ${contextLabel} built with ${entry.data.stack.split(",")[0].trim()}.`;
 
 const optimizedCover = await getImage({
   src: entry.data.coverImg,
