@@ -123,7 +123,7 @@ const initReveals = (): void => {
     groups.get(key)!.items.push(el);
   });
 
-  groups.forEach(({ triggerEl, items }) => {
+  const startGroup = (triggerEl: HTMLElement, items: HTMLElement[]): void => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: triggerEl,
@@ -167,6 +167,29 @@ const initReveals = (): void => {
           0
         );
       }
+    });
+  };
+
+  groups.forEach(({ triggerEl, items }) => {
+    const pendingVideos = items
+      .flatMap((el) => Array.from(el.querySelectorAll('video')))
+      .filter((video) => video.readyState < 2);
+
+    if (pendingVideos.length === 0) {
+      startGroup(triggerEl, items);
+      return;
+    }
+
+    let remaining = pendingVideos.length;
+    pendingVideos.forEach((video) => {
+      video.addEventListener(
+        'loadeddata',
+        () => {
+          remaining -= 1;
+          if (remaining === 0) startGroup(triggerEl, items);
+        },
+        { once: true },
+      );
     });
   });
 };
